@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import { CardText } from 'material-ui/Card';
 import Chip from 'material-ui/Chip';
@@ -18,14 +19,31 @@ const styles = {
 
 class ChipContainer extends React.Component {
   render() {
+    const fetch = this.props.fetch;
+    let symbolChips = null;
+
+    if (fetch.inProgress) {
+      symbolChips = 'Meows are fetching symbols for you!';
+    }
+    else if (!fetch.inProgress && fetch.symbols) {
+      symbolChips = fetch.symbols.map((symbol, index) => <SymbolChip key={index} text={symbol} />);
+    }
+    else {
+      symbolChips = 'Looks like there are no symbols yet!';
+    }
+
     return(
       <CardText style={styles.container}>
-        <SymbolChip text="MSTL" />
-        <SymbolChip text="AAPl" />
-        <SymbolChip text="GOOG" />
+        {symbolChips}
       </CardText>
     )
   }
 }
 
-export default ChipContainer;
+const mapStateToProps = (state) => {
+  return {
+    fetch: state.fetch
+  }
+};
+
+export default connect(mapStateToProps, null)(ChipContainer);

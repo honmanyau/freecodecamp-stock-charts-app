@@ -5,19 +5,30 @@ import { CardText } from 'material-ui/Card';
 
 
 const styles = {
-  container: {
+  chart: {
     height: '30em',
     border: '3px dashed #999',
     boxSizing: 'border-box'
+  },
+  attribution: {
+    textAlign: 'center',
+    fontSize: '9pt',
+    color: '#777'
+  },
+  link: {
+    color: '#777'
   }
 };
 
 class ChartArea extends React.Component {
   render() {
     return(
-      <CardText style={styles.container}>
-        Chart Area
-      </CardText>
+      <div>
+        <CardText>
+          <div style={styles.attribution}>Data powered by <a style={styles.link} href="https://www.alphavantage.co">Alpha Vantage</a></div>
+          <div style={styles.chart}>Chart Area</div>
+        </CardText>
+      </div>
     )
   }
 }

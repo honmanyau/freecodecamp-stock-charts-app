@@ -21,13 +21,33 @@ const styles = {
 }
 
 class SearchArea extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      symbol: ''
+    };
+  }
+
+  handleSymbolSubmission(event) {
+    if (event.key === 'Enter') {
+      const symbol = this.state.symbol;
+      const apiUrl = `https://freecodecamp-start.glitch.me/api/aa/${symbol}/daily`;
+
+      // this.props.actions.submitSymbol(symbol);
+    }
+  }
+
   render() {
     return(
       <CardText style={styles.container}>
         <TextField
           inputStyle={styles.input}
           hintStyle={styles.hint}
+          value={this.state.symbol}
           hintText="MEOW"
+          onChange={event => this.setState({symbol: event.target.value})}
+          onKeyPress={event => this.handleSymbolSubmission(event)}
         />
       </CardText>
     )
