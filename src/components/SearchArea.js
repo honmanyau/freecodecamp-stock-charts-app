@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as SubmitActions from '../actions/submit';
 
 import { CardText } from 'material-ui/Card';
 import TextField from 'material-ui/TextField';
@@ -17,6 +21,9 @@ const styles = {
   hint: {
     width: '100%',
     textAlign: 'center'
+  },
+  error: {
+    textAlign: 'center'
   }
 }
 
@@ -31,10 +38,9 @@ class SearchArea extends React.Component {
 
   handleSymbolSubmission(event) {
     if (event.key === 'Enter') {
-      const symbol = this.state.symbol;
-      const apiUrl = `https://freecodecamp-start.glitch.me/api/aa/${symbol}/daily`;
+      const symbol = this.state.symbol.toUpperCase();
 
-      // this.props.actions.submitSymbol(symbol);
+      this.props.actions.submitSymbol(symbol);
     }
   }
 
@@ -42,10 +48,13 @@ class SearchArea extends React.Component {
     return(
       <CardText style={styles.container}>
         <TextField
+          disabled={this.props.submit.inProgress ? true : false}
           inputStyle={styles.input}
           hintStyle={styles.hint}
+          errorStyle={styles.error}
           value={this.state.symbol}
           hintText="MEOW"
+          errorText={this.props.submit.errorMessage}
           onChange={event => this.setState({symbol: event.target.value})}
           onKeyPress={event => this.handleSymbolSubmission(event)}
         />
@@ -54,4 +63,16 @@ class SearchArea extends React.Component {
   }
 }
 
-export default SearchArea;
+const mapStateToProps = (state) => {
+  return {
+    submit: state.submit
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(SubmitActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchArea);

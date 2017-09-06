@@ -11,9 +11,20 @@ export function symbolListListener() {
 
     firebase.database().ref('/charting-app/list').on('value', snapshot => {
       if (snapshot.val()) {
-        dispatch(storeFetchedSymbols(snapshot.val()));
-        dispatch(fetchingSymbols(false));
+        const obj = snapshot.val();
+        const symbols = Object.keys(obj).reduce((acc, key) => {
+          if (obj[key] !== true) {
+            acc.push(obj[key]);
+          }
+
+          return acc;
+        }, []);
+
+        dispatch(storeFetchedSymbols(symbols));
       }
+
+      dispatch(fetchingSymbols(false));
+
     }, error => console.log('Something went wrong with the database listener!', error))
   }
 }

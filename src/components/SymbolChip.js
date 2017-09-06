@@ -12,7 +12,7 @@ const styles = {
 
 class SymbolChip extends React.Component {
   render() {
-    const text = this.props.text.toUpperCase();
+    const text = this.props.text;
 
     return(
       <Chip
