@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as SubmitActions from '../actions/submit';
+import * as FetchActions from '../actions/fetch';
 
 import Chip from 'material-ui/Chip';
 
@@ -15,15 +16,28 @@ const styles = {
 }
 
 class SymbolChip extends React.Component {
+  componentDidMount() {
+    const chartData = this.props.fetch.chartData;
+    const symbol = this.props.symbol;
+
+    if (!chartData) {
+      this.props.actions.fetchData(symbol);
+    }
+    else if (!chartData.hasOwnProperty(symbol)) {
+      this.props.actions.fetchData(symbol);
+    }
+  }
+
   render() {
-    const text = this.props.text;
+    console.log(this.props.fetch)
+    const symbol = this.props.symbol;
 
     return(
       <Chip
         style={styles.chip}
-        onRequestDelete={() => this.props.actions.deleteSymbol(this.props.text)}
+        onRequestDelete={() => this.props.actions.deleteSymbol(this.props.symbol)}
       >
-        {text}
+        {symbol}
       </Chip>
     )
   }
@@ -31,13 +45,14 @@ class SymbolChip extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    submit: state.submit
+    submit: state.submit,
+    fetch: state.fetch
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators(SubmitActions, dispatch)
+    actions: bindActionCreators({...SubmitActions, ...FetchActions}, dispatch)
   }
 }
 

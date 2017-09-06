@@ -26,7 +26,7 @@ class ChipContainer extends React.Component {
       symbolChips = 'Meows are fetching symbols for you!';
     }
     else if (!fetch.inProgress && fetch.symbols.length > 0) {
-      symbolChips = fetch.symbols.map((symbol, index) => <SymbolChip key={index} text={symbol} />);
+      symbolChips = fetch.symbols.map((symbol, index) => <SymbolChip key={index} symbol={symbol} />);
     }
     else {
       symbolChips = 'Looks like there are no symbols yet!';

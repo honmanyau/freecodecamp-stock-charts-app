@@ -4,6 +4,8 @@ import firebase from '../firebase';
 
 export const FETCHING_SYMBOLS = 'FETCHING_SYMBOLS';
 export const STORE_FETCHED_SYMBOLS = 'STORE_FETCHED_SYMBOLS';
+export const FETCHING_DATA = 'FETCHING_DATA';
+export const STORE_CHART_DATA = 'STORE_CHART_DATA';
 
 export function symbolListListener() {
   return function(dispatch) {
@@ -25,7 +27,31 @@ export function symbolListListener() {
 
       dispatch(fetchingSymbols(false));
 
-    }, error => console.log('Something went wrong with the database listener!', error))
+    }, error => {
+      console.log('Something went wrong with the database listener!', error)
+      dispatch(fetchingSymbols(false));
+    });
+  }
+}
+
+export function fetchData(symbol, interval = 'daily') {
+  return function(dispatch) {
+    dispatch(fetchingData(true));
+
+    const url = `https://freecodecamp-start.glitch.me/api/fetch/${symbol}/${interval}`;
+
+    fetch(url)
+      .then((response) => {
+        response.json()
+          .then(data => {
+            dispatch(storeChartData(symbol, data));
+            dispatch(fetchingData(false));
+          })
+      })
+      .catch(error => {
+        console.log(`Error when fetching data for ${symbol}.`)
+        dispatch(fetchingData(true));
+      })
   }
 }
 
@@ -43,6 +69,25 @@ export function storeFetchedSymbols(symbols) {
     type: STORE_FETCHED_SYMBOLS,
     payload: {
       symbols
+    }
+  }
+}
+
+export function fetchingData(inProgress) {
+  return {
+    type: FETCHING_DATA,
+    payload: {
+      inProgress
+    }
+  }
+}
+
+export function storeChartData(symbol, chartData) {
+  return {
+    type: STORE_CHART_DATA,
+    payload: {
+      symbol,
+      chartData
     }
   }
 }
