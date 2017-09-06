@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as SubmitActions from '../actions/submit';
 
 import Chip from 'material-ui/Chip';
 
@@ -17,7 +21,7 @@ class SymbolChip extends React.Component {
     return(
       <Chip
         style={styles.chip}
-        onRequestDelete={() => console.log(text)}
+        onRequestDelete={() => this.props.actions.deleteSymbol(this.props.text)}
       >
         {text}
       </Chip>
@@ -25,4 +29,16 @@ class SymbolChip extends React.Component {
   }
 }
 
-export default SymbolChip;
+const mapStateToProps = (state) => {
+  return {
+    submit: state.submit
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(SubmitActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SymbolChip);

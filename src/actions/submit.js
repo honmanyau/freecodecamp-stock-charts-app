@@ -27,9 +27,33 @@ export function submitSymbol(symbol) {
         })
         .catch(error => {
           dispatch(submittingSymbol(false));
-          console.log('Something went *really* wrong when submitting a symbol!')
+          dispatch(submitError('Something went *really* wrong when submitting a symbol!'));
         });
     }
+  }
+}
+
+export function deleteSymbol(symbol) {
+  return function(dispatch) {
+    dispatch(submittingSymbol(true));
+
+    const url = 'https://freecodecamp-start.glitch.me/api/delete/';
+
+    fetch(url + symbol)
+      .then(response => {
+        response.json()
+          .then(data => {
+            if (data.error) {
+              dispatch(submitError('The symbol already exist.'));
+            }
+            else {
+              dispatch(submitError(null));
+            }
+          })
+
+          dispatch(submittingSymbol(false));
+      })
+      .catch(error => dispatch(submitError('The symbol already exist.')))
   }
 }
 
