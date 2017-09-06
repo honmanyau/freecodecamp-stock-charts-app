@@ -2,13 +2,13 @@ import React from 'react';
 
 import { CardText } from 'material-ui/Card';
 
+import StockChart from './StockChart';
+
 
 
 const styles = {
   chart: {
-    height: '30em',
-    border: '3px dashed #999',
-    boxSizing: 'border-box'
+    height: '30em'
   },
   attribution: {
     textAlign: 'center',
@@ -26,7 +26,7 @@ class ChartArea extends React.Component {
       <div>
         <CardText>
           <div style={styles.attribution}>Data powered by <a style={styles.link} href="https://www.alphavantage.co">Alpha Vantage</a></div>
-          <div style={styles.chart}>Chart Area</div>
+          <div style={styles.chart}><StockChart type="bar" /></div>
         </CardText>
       </div>
     )
