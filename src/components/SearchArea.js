@@ -53,7 +53,7 @@ class SearchArea extends React.Component {
           hintStyle={styles.hint}
           errorStyle={styles.error}
           value={this.state.symbol}
-          hintText="MEOW"
+          hintText="Enter ticker symbol here"
           errorText={this.props.submit.errorMessage}
           onChange={event => this.setState({symbol: event.target.value})}
           onKeyPress={event => this.handleSymbolSubmission(event)}

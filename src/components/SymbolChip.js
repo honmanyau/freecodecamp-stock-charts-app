@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as SubmitActions from '../actions/submit';
-import * as FetchActions from '../actions/fetch';
 
 import Chip from 'material-ui/Chip';
 

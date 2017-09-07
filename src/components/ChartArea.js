@@ -7,7 +7,6 @@ import * as FetchActions from '../actions/fetch';
 import { CardText } from 'material-ui/Card';
 
 import ChartControl from './ChartControl';
-import StockChart from './StockChart';
 
 
 

@@ -83,20 +83,20 @@ class StockChart extends React.Component {
                 callbacks: {
                   label: function(tooltipItem, data) {
                     const xLabel = tooltipItem.xLabel;
-                    const tooltips = [xLabel];
+                    const tooltips = [];
 
                     for (let i = 0; i < data.datasets.length; i++) {
                       const points = data.datasets[i].data;
 
-                      for (let i = 0; i < points.length; i++) {
-                        if (points[i].x === xLabel) {
-                          console.log(data.datasets[i])
-                          
+                      for (let j = 0; j < points.length; j++) {
+                        if (points[j].x === xLabel) {
+                          tooltips.push(`${data.datasets[i].label}: ${points[j].y}`);
+                          break;
                         }
                       }
                     }
 
-                    return console.log(tooltipItem, data);
+                    return tooltips;
                   }
                 }
               }

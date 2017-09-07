@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import { CardText } from 'material-ui/Card';
-import Chip from 'material-ui/Chip';
-import TextField from 'material-ui/TextField';
 
 import SymbolChip from './SymbolChip';
 
