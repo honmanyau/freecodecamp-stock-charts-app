@@ -6,17 +6,12 @@ import * as FetchActions from '../actions/fetch';
 
 import { CardText } from 'material-ui/Card';
 
+import ChartControl from './ChartControl';
 import StockChart from './StockChart';
 
 
 
 const styles = {
-  chart: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    height: '30em'
-  },
   attribution: {
     textAlign: 'center',
     fontSize: '9pt',
@@ -33,7 +28,10 @@ class ChartArea extends React.Component {
       <div>
         <CardText>
           <div style={styles.attribution}>Data powered by <a style={styles.link} href="https://www.alphavantage.co">Alpha Vantage</a></div>
-          <div style={styles.chart}><StockChart type="bar" /></div>
+        </CardText>
+
+        <CardText>
+          <ChartControl />
         </CardText>
       </div>
     )
