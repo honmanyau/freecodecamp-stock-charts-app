@@ -12,6 +12,9 @@ import StockChart from './StockChart';
 
 const styles = {
   chart: {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
     height: '30em'
   },
   attribution: {

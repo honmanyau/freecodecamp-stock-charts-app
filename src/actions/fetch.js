@@ -56,6 +56,7 @@ export function fetchData(symbols, interval = 'daily') {
       .then(data => {
         if (data.indexOf('error') < 0) {
           dispatch(storeChartData(Object.assign({}, ...data)));
+          dispatch(fetchingSymbols(false));
         }
       });
   }
