@@ -1,4 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
+import * as FetchActions from '../actions/fetch';
 
 import { CardText } from 'material-ui/Card';
 
@@ -33,4 +37,17 @@ class ChartArea extends React.Component {
   }
 }
 
-export default ChartArea;
+const mapStateToProps = (state) => {
+  return {
+    submit: state.submit,
+    fetch: state.fetch
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    actions: bindActionCreators(FetchActions, dispatch)
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChartArea);

@@ -31,8 +31,8 @@ export default function fetch(state = initialState, action) {
     case STORE_CHART_DATA:
       return {
         ...state,
-        chartData: {...state.chartData, [action.payload.symbol]: action.payload.chartData}
-      }
+        chartData: action.payload.chartData
+      };
 
     default:
       return state;

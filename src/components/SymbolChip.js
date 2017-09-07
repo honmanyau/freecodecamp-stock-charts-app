@@ -16,20 +16,7 @@ const styles = {
 }
 
 class SymbolChip extends React.Component {
-  componentDidMount() {
-    const chartData = this.props.fetch.chartData;
-    const symbol = this.props.symbol;
-
-    if (!chartData) {
-      this.props.actions.fetchData(symbol);
-    }
-    else if (!chartData.hasOwnProperty(symbol)) {
-      this.props.actions.fetchData(symbol);
-    }
-  }
-
   render() {
-    console.log(this.props.fetch)
     const symbol = this.props.symbol;
 
     return(
@@ -43,17 +30,10 @@ class SymbolChip extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    submit: state.submit,
-    fetch: state.fetch
-  }
-}
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    actions: bindActionCreators({...SubmitActions, ...FetchActions}, dispatch)
+    actions: bindActionCreators(SubmitActions, dispatch)
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(SymbolChip);
+export default connect(null, mapDispatchToProps)(SymbolChip);

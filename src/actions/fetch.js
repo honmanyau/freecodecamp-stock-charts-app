@@ -23,10 +23,13 @@ export function symbolListListener() {
         }, []);
 
         dispatch(storeFetchedSymbols(symbols));
+        dispatch(fetchingSymbols(false));
+        dispatch(fetchData(symbols))
+
       }
-
-      dispatch(fetchingSymbols(false));
-
+      else {
+        dispatch(fetchingSymbols(false));
+      }
     }, error => {
       console.log('Something went wrong with the database listener!', error)
       dispatch(fetchingSymbols(false));
@@ -34,24 +37,27 @@ export function symbolListListener() {
   }
 }
 
-export function fetchData(symbol, interval = 'daily') {
+export function fetchData(symbols, interval = 'daily') {
   return function(dispatch) {
     dispatch(fetchingData(true));
 
-    const url = `https://freecodecamp-start.glitch.me/api/fetch/${symbol}/${interval}`;
+    Promise.all(symbols.map(symbol => {
+      const url = `https://freecodecamp-start.glitch.me/api/fetch/${symbol}/${interval}`;
 
-    fetch(url)
-      .then((response) => {
-        response.json()
-          .then(data => {
-            dispatch(storeChartData(symbol, data));
-            dispatch(fetchingData(false));
-          })
-      })
-      .catch(error => {
-        console.log(`Error when fetching data for ${symbol}.`)
-        dispatch(fetchingData(true));
-      })
+      return fetch(url).then(response => {
+        if (response.ok) {
+          return response.json().then(data => {return {[symbol]: data}});
+        }
+        else {
+          return 'error';
+        }
+      }).catch(error => console.log('Multi fetch error.'));
+    }))
+      .then(data => {
+        if (data.indexOf('error') < 0) {
+          dispatch(storeChartData(Object.assign({}, ...data)));
+        }
+      });
   }
 }
 
@@ -82,11 +88,10 @@ export function fetchingData(inProgress) {
   }
 }
 
-export function storeChartData(symbol, chartData) {
+export function storeChartData(chartData) {
   return {
     type: STORE_CHART_DATA,
     payload: {
-      symbol,
       chartData
     }
   }
