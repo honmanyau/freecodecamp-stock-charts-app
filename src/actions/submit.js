@@ -6,7 +6,7 @@ export function submitSymbol(symbol) {
     dispatch(submittingSymbol(true));
 
     if (symbol.length < 6) {
-      const url = 'http://freecodecamp-start.glitch.me/api/submit/' + symbol.toUpperCase();
+      const url = 'https://freecodecamp-start.glitch.me/api/submit/' + symbol.toUpperCase();
 
       fetch(url)
         .then((response) => {
