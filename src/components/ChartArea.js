@@ -14,10 +14,16 @@ const styles = {
   attribution: {
     textAlign: 'center',
     fontSize: '9pt',
-    color: '#777'
+    color: '#555'
+  },
+  title: {
+    textAlign: 'center',
+    padding: '0',
+    fontSize: '16pt',
+    color: '#333'
   },
   link: {
-    color: '#777'
+    color: '#555'
   }
 };
 
@@ -25,8 +31,12 @@ class ChartArea extends React.Component {
   render() {
     return(
       <div>
-        <CardText>
-          <div style={styles.attribution}>Data powered by <a style={styles.link} href="https://www.alphavantage.co">Alpha Vantage</a></div>
+        <CardText style={styles.attribution}>
+          Data powered by <a style={styles.link} href="https://www.alphavantage.co">Alpha Vantage</a>
+        </CardText>
+
+        <CardText style={styles.title}>
+          Simple Moving Average
         </CardText>
 
         <CardText>

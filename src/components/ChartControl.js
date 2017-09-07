@@ -39,44 +39,46 @@ class ChartControl extends React.Component {
 
   render() {
     const controls = !this.props.fetch.inProgress && this.props.fetch.chartData ?
-      <RadioButtonGroup style={styles.controls} name="period" defaultSelected="365" onChange={(event, value) => this.setState({period: value})}>
-        <RadioButton
-          style={styles.radio}
-          iconStyle={styles.radioInput}
-          value="30"
-          label="1m"
-        />
-        <RadioButton
-          style={styles.radio}
-          iconStyle={styles.radioInput}
-          value="90"
-          label="3m"
-        />
-        <RadioButton
-          style={styles.radio}
-          iconStyle={styles.radioInput}
-          value="180"
-          label="6m"
-        />
-        <RadioButton
-          style={styles.radio}
-          iconStyle={styles.radioInput}
-          value="365"
-          label="1y"
-        />
-        <RadioButton
-          style={styles.radio}
-          iconStyle={styles.radioInput}
-          value="1095"
-          label="3y"
-        />
-        <RadioButton
-          style={styles.radio}
-          iconStyle={styles.radioInput}
-          value="1825"
-          label="5y"
-        />
-      </RadioButtonGroup>
+      <div>
+        <RadioButtonGroup style={styles.controls} name="period" defaultSelected="365" onChange={(event, value) => this.setState({period: value})}>
+          <RadioButton
+            style={styles.radio}
+            iconStyle={styles.radioInput}
+            value="30"
+            label="1m"
+          />
+          <RadioButton
+            style={styles.radio}
+            iconStyle={styles.radioInput}
+            value="90"
+            label="3m"
+          />
+          <RadioButton
+            style={styles.radio}
+            iconStyle={styles.radioInput}
+            value="180"
+            label="6m"
+          />
+          <RadioButton
+            style={styles.radio}
+            iconStyle={styles.radioInput}
+            value="365"
+            label="1y"
+          />
+          <RadioButton
+            style={styles.radio}
+            iconStyle={styles.radioInput}
+            value="1095"
+            label="3y"
+          />
+          <RadioButton
+            style={styles.radio}
+            iconStyle={styles.radioInput}
+            value="1825"
+            label="5y"
+          />
+        </RadioButtonGroup>
+      </div>
       :
       null;
 
