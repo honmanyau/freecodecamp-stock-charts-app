@@ -78,28 +78,7 @@ class StockChart extends React.Component {
             }}
             options={{
               maintainAspectRatio: false,
-              responsive: true,
-              tooltips: {
-                callbacks: {
-                  label: function(tooltipItem, data) {
-                    const xLabel = tooltipItem.xLabel;
-                    const tooltips = [];
-
-                    for (let i = 0; i < data.datasets.length; i++) {
-                      const points = data.datasets[i].data;
-
-                      for (let j = 0; j < points.length; j++) {
-                        if (points[j].x === xLabel) {
-                          tooltips.push(`${data.datasets[i].label}: ${points[j].y}`);
-                          break;
-                        }
-                      }
-                    }
-
-                    return tooltips;
-                  }
-                }
-              }
+              responsive: true
             }}
           />
         </div>
